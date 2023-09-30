@@ -3,27 +3,28 @@ The code for CS427 Android app.
 <br/>
 <br/>
 
-<b>Team # member information</b>
+<b>Team 34 member information</b>
 <br/>
-| Name          | NetID         | GitHub ID   | Role          | Experience    |
-| ------------- | ------------- | ------------| ------------- | ------------- |
-|               |               |             |               |               |            
-|               |               |             |               |               |
-|               |               |             |               |               |
-|               |               |             |               |               |
-|               |               |             |               |               |
-|               |               |             |               |               |
-|               |               |             |               |               |
-|               |               |             |               |               |
+| Name          | NetID   | GithubID    | Role         | Experience                            |
+|---------------|---------|-------------|--------------|---------------------------------------|
+| Dhyey Pandya  | dhyeyhp2   | dhp98       | Tech Lead    | Python, Web Dev, CI/CD, ML/AI, Java/ Android (Beginner) |
+| Yifei Kang    | yifeik3 | yifeikang   | Developer    | Data analysis, R, Python, new to Java |
+| Jingjing Yao  | jyao27  | elfjing     | Manager      | Java, Python                           |
+| Gabin Ntankeu | ntankeu2| gabinho991  | Developer    | Data analysis, Python, SQL, Java (Beginner) |
+| Aditi Wikhe   | aditiw2 | aditiwikhe  | Developer    | Python, ML/AI, SQL, MongoDB, webdev  |
+| Robert Zhang  | ruihaoz2| banyekalaok1| Developer    | Python, SQL, C++                     |
+| Jawad Rashid  | jawadr2 | jawad-UiUc  | Developer    | Python, SQL, MongoDB, C/C++          |
+
 <br/>
 
 
 <b>Weekly Progress Reports</b>
 </br> 
 </br>
-Meeting time: 
+Meeting time: Every Thursday 8pm CST by Zoom.
 </br> 
 Meeting location (zoom link):
+https://illinois.zoom.us/j/81148387294?pwd=THVOZk1rRk5FZEU3TS9uRm9vMDdiZz09
 </br> 
 </br>
 <b>Week 1</b>
