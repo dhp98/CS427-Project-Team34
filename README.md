@@ -33,16 +33,16 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
-| NetID          | Progress from last week         | Tasks for next week   |
-| ---------------| --------------------------------| ----------------------|
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
+| NetID    | Progress from last week                                  | Tasks for next week          |
+| -------- | ------------------------------------------------------- | ----------------------------- |
+| dhyeyhp2 | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| yifeik3  | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| jyao27   | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| ntankeu2 | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| aditiw2  | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| ruihaoz2 | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+| jawadr2  | Setup complete, communication channel established on Slack. Planned agile methodology. | Complete Milestone 1 |
+
 </br>
 
 
@@ -52,16 +52,16 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
-| NetID          | Progress from last week         | Tasks for next week   |
-| ---------------| --------------------------------| ----------------------|
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
+| NetID    | Progress from last week | Tasks for next week
+| -------- | ------------------------| --------------------| 
+| dhyeyhp2 | Milestone 1 complete | Complete Milestone 2 |
+| yifeik3  | Milestone 1 complete | Complete Milestone 2 |
+| jyao27   | Milestone 1 complete | Complete Milestone 2 |
+| ntankeu2 | Milestone 1 complete | Complete Milestone 2 |
+| aditiw2  | Milestone 1 complete | Complete Milestone 2 |
+| ruihaoz2 | Milestone 1 complete | Complete Milestone 2 |
+| jawadr2  | Milestone 1 complete | Complete Milestone 2 |
+
 </br>
 
 
