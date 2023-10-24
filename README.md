@@ -50,6 +50,7 @@ Meeting notes:
 <b>Week 2</b>
 </br>
 Members present: dhyeyhp2, yifeik3, jyao27, ntankeu2, aditiw2, ruihaoz2, jawadr2
+</br>
 Meeting notes: 
 1. Discuss the project's requirements and user cases.
 2. Discuss the task allocation for user cases and diagrams.
@@ -94,8 +95,8 @@ Meeting notes:
 Members present: yifeik3, jyao27, ntankeu2, aditiw2, ruihaoz2, jawadr2
 </br>
 Meeting notes:
-1.Go through milestone3 instructions.
-2.Team member claim tasks for milestone3.
+1. Go through milestone3 instructions.
+2. Team member claim tasks for milestone3.
 </br>
 
 | NetID          | Progress from last week                                                        | Tasks for next week   |
