@@ -34,6 +34,7 @@ Meeting notes:
 2. Discuss and decide the time for our weekly meetings.
 3. Discuss and determine the roles of each team member.
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 | dhyeyhp2       |          None                   |  Set up Repo and Environment |
@@ -53,6 +54,7 @@ Meeting notes:
 1. Discuss the project's requirements and user cases.
 2. Discuss the task allocation for user cases and diagrams.
 </br>
+
 | NetID          | Progress from last week                        | Tasks for next week   |
 | ---------------| -----------------------------------------------| ----------------------|
 | dhyeyhp2       |   Set up Repo and Environment                  | Work on class diagram and component graph |
@@ -74,6 +76,7 @@ Meeting notes:
 2. Review class and component diagrams.
 3. Discuss arrangements for upcoming work.
 </br>
+
 | NetID          | Progress from last week                               | Tasks for next week                     |
 | ---------------| ------------------------------------------------------| ----------------------------------------|
 | dhyeyhp2       | Work on class diagram and component graph             | Finish class diagram and component graph
@@ -94,11 +97,12 @@ Meeting notes:
 1.Go through milestone3 instructions.
 2.Team member claim tasks for milestone3.
 </br>
+
 | NetID          | Progress from last week                                                        | Tasks for next week   |
-| ---------------| --------------------------------------------------------------  ---------------|------------------------------------|
+| ---------------| -------------------------------------------------------------------------------|------------------------------------|
 | dhyeyhp2       | Finish class diagram and component graph                                       | Work on task 3                     |
 | yifeik3        | Think about feature would like to take and methods may need to use; Peer review| Work on task 2                     |
-| jyao27         | Finish requirements, user cases and submit milestone2.|                        | Updates meeting and check progress |
+| jyao27         | Finish requirements, user cases and submit milestone2.                         | Updates meetings and check progress|
 | ntankeu2       | Think about feature would like to take and methods may need to use; Peer review| Work on task 1                     |                
 | aditiw2        | Think about feature would like to take and methods may need to use; Peer review| Work on task 1                     |
 | ruihaoz2       | Think about feature would like to take and methods may need to use; Peer review| Work on task 3                     |
@@ -112,6 +116,7 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 |                |                                 |                       |
@@ -131,6 +136,7 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 |                |                                 |                       |
@@ -150,6 +156,7 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 |                |                                 |                       |
@@ -169,6 +176,7 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 |                |                                 |                       |
@@ -188,6 +196,7 @@ Members present: List the NetID of the people who attended the meeting
 </br>
 Meeting notes: Explain the overall team progress and a summary of discussion
 </br>
+
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
 |                |                                 |                       |
