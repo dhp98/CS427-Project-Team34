@@ -121,13 +121,13 @@ Go over the implementation and integration details for each task.
 
 | NetID          | Progress from last week                                                        | Tasks for next week   |
 | ---------------| -------------------------------------------------------------------------------|------------------------------------|
-| dhyeyhp2       | Work on task 3 adn demo video, Peer review        |  Think about feature would like to take and methods may need to use for milestone4
-| yifeik3        | Work on task 2, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
+| dhyeyhp2       | Work on task 3 adn demo video, Peer review        |  Finish task3; Think about feature would like to take and methods may need to use for milestone4
+| yifeik3        | Work on task 2, Peer review                       |  Finish task2; Think about feature would like to take and methods may need to use for milestone4
 | jyao27         | Updates meetings and check progress, Peer review  |  Organize team discussion for milestone4 and prepare for final tests
-| ntankeu2       | Work on task 1, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4             
-| aditiw2        | Work on task 1, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
-| ruihaoz2       | Work on task 3, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
-| jawadr2        | Work on task 2, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
+| ntankeu2       | Work on task 1, Peer review                       |  Finish task1; Think about feature would like to take and methods may need to use for milestone4             
+| aditiw2        | Work on task 1, Peer review                       |  Finish task1; Think about feature would like to take and methods may need to use for milestone4
+| ruihaoz2       | Work on task 3, Peer review                       |  Finish task3; Think about feature would like to take and methods may need to use for milestone4
+| jawadr2        | Work on task 2, Peer review                       |  Finish task2; Think about feature would like to take and methods may need to use for milestone4
 </br>
 
 
