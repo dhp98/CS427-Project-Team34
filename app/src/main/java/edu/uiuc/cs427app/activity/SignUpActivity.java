@@ -22,6 +22,8 @@ import edu.uiuc.cs427app.util.ToastMessageHandler;
 public class SignUpActivity extends AppCompatActivity {
     EditText userName, email, password, confirmPassword;
     Button signUp;
+    Button buttonChooseTheme;
+    int selectedTheme = 1;
 
     /**
      * Performs initialization of all fragments
@@ -34,6 +36,26 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //Show the Theme Name when clicking the "Choose Theme"
+        buttonChooseTheme = findViewById(R.id.buttonChooseTheme);
+        buttonChooseTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedTheme == 1) {
+                    selectedTheme = 2;
+                    Toast.makeText(SignUpActivity.this, "Sky blue", Toast.LENGTH_SHORT).show();
+                }
+                else if (selectedTheme == 2) {
+                    selectedTheme = 3;
+                    Toast.makeText(SignUpActivity.this, "Teal blue", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    selectedTheme = 1;
+                    Toast.makeText(SignUpActivity.this, "Illini blue", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //assign variables for accessing values in UI elements
         email = findViewById(R.id.userEmail);
@@ -64,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setLoginName(email.getText().toString());
                 user.setCreatedOn(new Date());
                 user.setLastModified(new Date());
-                user.setCurrentTheme(0);
+                user.setCurrentTheme(selectedTheme);
                 user.setLoggedIn(false);
 
                 //if the details entered by the user are valid, add the model to the database

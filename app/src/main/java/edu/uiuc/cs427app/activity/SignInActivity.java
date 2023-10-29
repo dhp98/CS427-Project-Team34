@@ -93,6 +93,8 @@ public class SignInActivity extends AppCompatActivity {
                         } 
                         //if the email and password are valid
                         else {
+                            int userTheme = user.getCurrentTheme();
+                            mainIntent.putExtra("userTheme", userTheme);
                             mainIntent.putExtra("userEmail", user.getEmailId());
                             user.setLoggedIn(true);
                             user.setLastLoggedIn(new Date());
