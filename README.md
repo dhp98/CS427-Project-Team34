@@ -113,21 +113,21 @@ Meeting notes:
 
 <b>Week 5</b>
 </br>
-Members present: List the NetID of the people who attended the meeting
+Members present: dhyeyhp2, yifeik3, aditiw2, ruihaoz2, jawadr2, ntankeu2
 </br>
-Meeting notes: Explain the overall team progress and a summary of discussion
+Meeting notes: 
+Go over the implementation and integration details for each task.
 </br>
 
-| NetID          | Progress from last week         | Tasks for next week   |
-| ---------------| --------------------------------| ----------------------|
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
+| NetID          | Progress from last week                                                        | Tasks for next week   |
+| ---------------| -------------------------------------------------------------------------------|------------------------------------|
+| dhyeyhp2       | Work on task 3 adn demo video, Peer review        |  Think about feature would like to take and methods may need to use for milestone4
+| yifeik3        | Work on task 2, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
+| jyao27         | Updates meetings and check progress, Peer review  |  Organize team discussion for milestone4 and prepare for final tests
+| ntankeu2       | Work on task 1, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4             
+| aditiw2        | Work on task 1, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
+| ruihaoz2       | Work on task 3, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
+| jawadr2        | Work on task 2, Peer review                       |  Think about feature would like to take and methods may need to use for milestone4
 </br>
 
 
