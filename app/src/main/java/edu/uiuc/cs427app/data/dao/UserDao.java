@@ -63,6 +63,14 @@ public interface UserDao {
     LiveData<List<User>> getAllUsersObservable();
 
     /**
+     * Get all cities associated with a user by email.
+     * @param login_name email id of the user
+     * @return JSON string of city list
+     */
+    @Query("SELECT city_list FROM user WHERE login_name = :login_name")
+    LiveData<String> getCityListByName(String login_name);
+
+    /**
      * Get user matching email and password with an observable interface
      * @param email user email
      * @param password user password
@@ -70,4 +78,13 @@ public interface UserDao {
      */
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
     LiveData<User> login(String email, String password);
+
+
+    @Query("UPDATE user SET city_list = :updatedCityList WHERE login_name = :login_name") // This query is a placeholder
+    void removeCityFromUser(String login_name, String updatedCityList); // Note: The updatedCityList parameter would come from outside logic
+
+    @Query("UPDATE user SET city_list = :updatedCityList WHERE login_name = :login_name") // This query is a placeholder
+    void addCityToUser(String login_name, String updatedCityList); // Note: The updatedCityList parameter would come from outside logic
+
+
 }

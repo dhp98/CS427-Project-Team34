@@ -93,7 +93,10 @@ public class SignInActivity extends AppCompatActivity {
                         } 
                         //if the email and password are valid
                         else {
+                            int userTheme = user.getCurrentTheme();
+                            mainIntent.putExtra("userTheme", userTheme);
                             mainIntent.putExtra("userEmail", user.getEmailId());
+                            mainIntent.putExtra("userName", user.getLoginName());
                             user.setLoggedIn(true);
                             user.setLastLoggedIn(new Date());
                             userRepository.update(user).addListener(() -> startActivity(mainIntent), ContextCompat.getMainExecutor(getApplicationContext()));

@@ -17,7 +17,7 @@ import edu.uiuc.cs427app.data.entity.User;
 import edu.uiuc.cs427app.data.util.typeconverters.TimestampConverter;
 import edu.uiuc.cs427app.data.util.typeconverters.UUIDConverter;
 
-@Database(entities = {User.class}, version = 3, exportSchema = true)
+@Database(entities = {User.class}, version = 4, exportSchema = true)
 @TypeConverters({UUIDConverter.class, TimestampConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase DB_INSTANCE;

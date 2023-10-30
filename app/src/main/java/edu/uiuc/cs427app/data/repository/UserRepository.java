@@ -7,7 +7,12 @@ import androidx.lifecycle.LiveData;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import edu.uiuc.cs427app.data.dao.UserDao;
 import edu.uiuc.cs427app.data.entity.User;
@@ -141,4 +146,57 @@ public class UserRepository {
             return null;
         }
     }
+
+
+    /**
+     * Add a city to a user's city list.
+     * @param email User's email
+     * @param city The city to add
+     */
+    public void addCity(String email, String city) {
+        new ModifyCityAsyncTask(userDao, ModifyAction.ADD).execute(email, city);
+    }
+
+    /**
+     * Remove a city from a user's city list.
+     * @param email User's email
+     * @param city The city to remove
+     */
+    public void removeCity(String email, String city) {
+        new ModifyCityAsyncTask(userDao, ModifyAction.REMOVE).execute(email, city);
+    }
+
+    private enum ModifyAction { ADD, REMOVE }
+
+    private static class ModifyCityAsyncTask extends AsyncTask<String, Void, Void> {
+        private final UserDao userDao;
+        private final ModifyAction action;
+
+        private ModifyCityAsyncTask(UserDao userDao, ModifyAction action) {
+            this.userDao = userDao;
+            this.action = action;
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            String email = params[0];
+            String city = params[1];
+            User user = userDao.getByEmailSync(email);
+            if (user == null) return null;
+
+            String cityListStr = user.getCityList();
+            List<String> cityList = cityListStr == null ? new ArrayList<>() : new ArrayList<>(Arrays.asList(cityListStr.split(",")));
+
+            if (action == ModifyAction.ADD && !cityList.contains(city)) {
+                cityList.add(city);
+            } else if (action == ModifyAction.REMOVE) {
+                cityList.remove(city);
+            }
+            user.setCityList(String.join(",", cityList));
+            userDao.update(user);
+            return null;
+        }
+    }
 }
+
+

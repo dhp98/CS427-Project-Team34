@@ -31,7 +31,27 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Welcome" />
+                android:textSize="30dp"
+                android:text="List of Cities" />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="559dp"
+                android:layout_weight="1"
+                android:drawSelectorOnTop="false" />
+
+            <Button
+                android:id="@+id/buttonAddLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add a location" />
+
+            <Button
+                android:id="@+id/buttonRemoveLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remove a location" />
 
         </LinearLayout>
 

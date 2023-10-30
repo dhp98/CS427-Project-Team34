@@ -39,33 +39,33 @@ public class BaseMenuActivity extends AppCompatActivity implements View.OnClickL
     UserRepository userRepository = new UserRepository(getApplicationContext());
     // Method for modifying UI changes for adding a new city
     Transformations.distinctUntilChanged(userRepository.getByEmail(userEmail))
-        .observe(
-            BaseMenuActivity.this,
-            new Observer<User>() {
-              /**
-               * This is an callback which will be invoked when the `User` instance has changed.
-               * This typically happens when a related column is updated or the results of a
-               * `SELECT` query is returned. Since the `userRepository.getByEmail` method returns a
-               * `LiveData<User>`, it means Android will keep listening to the underlying query and
-               * invoke this callback method whenever the data changes. We set the username in the
-               * app bar, once the user has successfully logged in, inside this callback method.
-               *
-               * @param user User instance
-               */
-              @Override
-              public void onChanged(User user) {
-                if (getSupportActionBar() != null) {
-                  String existingText = requireNonNull(getSupportActionBar().getTitle()).toString();
-                  if (!existingText.contains("-")) {
-                    getSupportActionBar()
-                        .setTitle(
-                            String.format(
-                                "%s-%s",
-                                getSupportActionBar().getTitle().toString(), user != null ? user.getLoginName() : ""));
-                  }
-                }
-              }
-            });
+            .observe(
+                    BaseMenuActivity.this,
+                    new Observer<User>() {
+                      /**
+                       * This is an callback which will be invoked when the `User` instance has changed.
+                       * This typically happens when a related column is updated or the results of a
+                       * `SELECT` query is returned. Since the `userRepository.getByEmail` method returns a
+                       * `LiveData<User>`, it means Android will keep listening to the underlying query and
+                       * invoke this callback method whenever the data changes. We set the username in the
+                       * app bar, once the user has successfully logged in, inside this callback method.
+                       *
+                       * @param user User instance
+                       */
+                      @Override
+                      public void onChanged(User user) {
+                        if (getSupportActionBar() != null) {
+                          String existingText = requireNonNull(getSupportActionBar().getTitle()).toString();
+                          if (!existingText.contains("-")) {
+                            getSupportActionBar()
+                                    .setTitle(
+                                            String.format(
+                                                    "%s-%s",
+                                                    getSupportActionBar().getTitle().toString(), user != null ? user.getLoginName() : ""));
+                          }
+                        }
+                      }
+                    });
   }
 
   /**
@@ -122,23 +122,23 @@ public class BaseMenuActivity extends AppCompatActivity implements View.OnClickL
         logoutIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         UserRepository userRepository = new UserRepository(getApplicationContext());
         userRepository
-            .getByEmail(getIntent().getStringExtra("userEmail"))
-            .observe(
-                this,
-                new Observer<User>() {
-                  @Override
-                  public void onChanged(User user) {
-                    user.setLoggedIn(false);
-                    userRepository
-                        .update(user)
-                        .addListener(
-                            () -> startActivity(logoutIntent),
-                            ContextCompat.getMainExecutor(getApplicationContext()));
-                    if (Places.isInitialized()) {
-                      Places.deinitialize();
-                    }
-                  }
-                });
+                .getByEmail(getIntent().getStringExtra("userEmail"))
+                .observe(
+                        this,
+                        new Observer<User>() {
+                          @Override
+                          public void onChanged(User user) {
+                            user.setLoggedIn(false);
+                            userRepository
+                                    .update(user)
+                                    .addListener(
+                                            () -> startActivity(logoutIntent),
+                                            ContextCompat.getMainExecutor(getApplicationContext()));
+                            if (Places.isInitialized()) {
+                              Places.deinitialize();
+                            }
+                          }
+                        });
         break;
     }
     return true;

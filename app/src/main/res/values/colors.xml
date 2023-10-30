@@ -7,7 +7,12 @@
 
     <color name="illini_blue">#3470CC</color>
     <color name="illini_orange">#FF9800</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
 
-    <color name="neon_pink">#EC35E0</color>
-    <color name="neon_green">#3DED1C</color>
+    <color name="grey">#FF686968</color>
+    <color name="skyblue_200">#FF62A8A7</color>
+    <color name="skyblue_500">#FF76C3D6</color>
+    <color name="skyblue_700">#FF589EB0</color>
 </resources>
