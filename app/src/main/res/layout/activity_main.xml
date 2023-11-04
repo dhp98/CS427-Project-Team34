@@ -17,7 +17,6 @@
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,8 +30,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textSize="30dp"
-                android:text="List of Cities" />
+                android:text="List of Cities"
+                android:textSize="30dp" />
 
             <ListView
                 android:id="@+id/listView"
@@ -40,6 +39,20 @@
                 android:layout_height="559dp"
                 android:layout_weight="1"
                 android:drawSelectorOnTop="false" />
+
+            <Button
+                android:id="@+id/buttonWeather"
+                android:layout_width="419dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listView"
+                android:text="View Weather" />
+
+            <Button
+                android:id="@+id/buttonMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonWeather"
+                android:text="View Map" />
 
             <Button
                 android:id="@+id/buttonAddLocation"

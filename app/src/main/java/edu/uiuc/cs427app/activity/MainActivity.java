@@ -66,6 +66,11 @@ public class MainActivity extends BaseMenuActivity {
     buttonAdd.setOnClickListener(this);
     buttonDel.setOnClickListener(this);
 
+//    add button weather and map
+    Button buttonWeather = findViewById(R.id.buttonWeather);
+    Button buttonMap = findViewById(R.id.buttonMap);
+    buttonWeather.setOnClickListener(this);
+    buttonMap.setOnClickListener(this);
   }
   @Override
   public void onClick(View view) {
@@ -105,6 +110,41 @@ public class MainActivity extends BaseMenuActivity {
         });
         AlertDialog alertDialo = removeDialog.create();
         alertDialo.show();
+        break;
+
+//        case for weather
+      case R.id.buttonWeather:
+        // Prompt for weather-related input
+        AlertDialog.Builder weatherDialog = new AlertDialog.Builder(this);
+        weatherDialog.setMessage("Enter city name to view weather information");
+        final EditText inputWeather = new EditText(this);
+        weatherDialog.setView(inputWeather);
+        weatherDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int which) {
+            String weatherInfo = inputWeather.getText().toString().trim();
+            // Handle the weather information as needed
+          }
+        });
+        AlertDialog alertDialogWeather = weatherDialog.create();
+        alertDialogWeather.show();
+        break;
+
+//        case for map
+      case R.id.buttonMap:
+        // Prompt for map-related input
+        AlertDialog.Builder mapDialog = new AlertDialog.Builder(this);
+        mapDialog.setMessage("Enter city name to view the map");
+        final EditText inputMap = new EditText(this);
+        mapDialog.setView(inputMap);
+        mapDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int which) {
+            String mapInfo = inputMap.getText().toString().trim();
+            // Handle the map-related information as needed
+            // You can launch a map activity or fragment and pass the mapInfo
+          }
+        });
+        AlertDialog alertDialogMap = mapDialog.create();
+        alertDialogMap.show();
         break;
     }
   }
