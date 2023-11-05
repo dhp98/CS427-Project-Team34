@@ -54,6 +54,7 @@
                 android:layout_below="@+id/buttonWeather"
                 android:text="View Map" />
 
+
             <Button
                 android:id="@+id/buttonAddLocation"
                 android:layout_width="match_parent"

@@ -18,6 +18,8 @@ import android.content.DialogInterface.OnClickListener;
 import edu.uiuc.cs427app.R;
 import edu.uiuc.cs427app.data.repository.UserRepository;
 import edu.uiuc.cs427app.data.entity.User;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
 public class MainActivity extends BaseMenuActivity {
   private List<String> newLocations = new ArrayList<String>(); //locations array
@@ -112,40 +114,100 @@ public class MainActivity extends BaseMenuActivity {
         alertDialo.show();
         break;
 
-//        case for weather
+//      case for weather to input text
+//      case R.id.buttonWeather:
+//        // Prompt for weather-related input
+//        AlertDialog.Builder weatherDialog = new AlertDialog.Builder(this);
+//        weatherDialog.setMessage("Enter city name to view weather information");
+//        final EditText inputWeather = new EditText(this);
+//        weatherDialog.setView(inputWeather);
+//        weatherDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+//          public void onClick(DialogInterface dialog, int which) {
+//            String weatherInfo = inputWeather.getText().toString().trim();
+//            // Handle the weather information as needed
+//          }
+//        });
+//        AlertDialog alertDialogWeather = weatherDialog.create();
+//        alertDialogWeather.show();
+//        break;
+
+      //      case for weather to drop down list
       case R.id.buttonWeather:
-        // Prompt for weather-related input
+        // Create a list of cities
+        final String[] cities = {"City 1", "City 2", "City 3", "City 4", "City 5"};
+
         AlertDialog.Builder weatherDialog = new AlertDialog.Builder(this);
-        weatherDialog.setMessage("Enter city name to view weather information");
-        final EditText inputWeather = new EditText(this);
-        weatherDialog.setView(inputWeather);
+        weatherDialog.setTitle("Select a city for weather information");
+
+        // Create a Spinner widget
+        final Spinner citySpinner = new Spinner(this);
+
+        // Create an ArrayAdapter to populate the Spinner with city names
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cities);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(adapter);
+
+        weatherDialog.setView(citySpinner);
+
         weatherDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int which) {
-            String weatherInfo = inputWeather.getText().toString().trim();
-            // Handle the weather information as needed
+            // Get the selected city from the Spinner
+            String selectedCity = cities[citySpinner.getSelectedItemPosition()];
+            // Handle the selected city for weather information
+            // You can use selectedCity in your weather information retrieval logic
           }
         });
+
         AlertDialog alertDialogWeather = weatherDialog.create();
         alertDialogWeather.show();
         break;
 
-//        case for map
+////        case for map to input text
+//      case R.id.buttonMap:
+//        // Prompt for map-related input
+//        AlertDialog.Builder mapDialog = new AlertDialog.Builder(this);
+//        mapDialog.setMessage("Enter city name to view the map");
+//        final EditText inputMap = new EditText(this);
+//        mapDialog.setView(inputMap);
+//        mapDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+//          public void onClick(DialogInterface dialog, int which) {
+//            String mapInfo = inputMap.getText().toString().trim();
+//            // Handle the map-related information as needed
+//            // You can launch a map activity or fragment and pass the mapInfo
+//          }
+//        });
+//        AlertDialog alertDialogMap = mapDialog.create();
+//        alertDialogMap.show();
+//        break;
+      //        case for map to drop down list
+// Inside the switch statement
       case R.id.buttonMap:
-        // Prompt for map-related input
+        final String[] citiesMap = {"City 1", "City 2", "City 3", "City 4", "City 5"};
+        final Spinner citySpinnerMap = new Spinner(this);
+        final ArrayAdapter<String> adapterMap = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, citiesMap);
+
         AlertDialog.Builder mapDialog = new AlertDialog.Builder(this);
-        mapDialog.setMessage("Enter city name to view the map");
-        final EditText inputMap = new EditText(this);
-        mapDialog.setView(inputMap);
+        mapDialog.setTitle("Select a city for viewing the map");
+
+        // Set the adapter for the Spinner
+        adapterMap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinnerMap.setAdapter(adapterMap);
+        mapDialog.setView(citySpinnerMap);
+
         mapDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
           public void onClick(DialogInterface dialog, int which) {
-            String mapInfo = inputMap.getText().toString().trim();
-            // Handle the map-related information as needed
-            // You can launch a map activity or fragment and pass the mapInfo
+            // Get the selected city from the Spinner
+            String selectedCity = citiesMap[citySpinnerMap.getSelectedItemPosition()];
+            // Handle the selected city for map-related information
+            // You can launch a map activity or fragment and pass the selectedCity
           }
         });
+
         AlertDialog alertDialogMap = mapDialog.create();
         alertDialogMap.show();
         break;
+
+
     }
   }
 }
