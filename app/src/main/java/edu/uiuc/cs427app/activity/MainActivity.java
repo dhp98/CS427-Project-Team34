@@ -57,6 +57,12 @@ public class MainActivity extends BaseMenuActivity {
           ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
                   android.R.layout.simple_list_item_1, android.R.id.text1, newLocations);
           listView.setAdapter(adapter);
+          listView.setOnItemClickListener((parent, view, position, id) -> {
+            String selectedCity = newLocations.get(position);
+            Intent intent = new Intent(MainActivity.this, CityActivity.class);
+            intent.putExtra("cityName", selectedCity);
+            startActivity(intent);
+          });
         }
       }
     });
