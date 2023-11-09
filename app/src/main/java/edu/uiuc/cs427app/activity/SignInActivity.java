@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.UUID;
 
 import edu.uiuc.cs427app.R;
 import edu.uiuc.cs427app.data.entity.User;
@@ -94,9 +95,11 @@ public class SignInActivity extends AppCompatActivity {
                         //if the email and password are valid
                         else {
                             int userTheme = user.getCurrentTheme();
+                            UUID userId = user.getId();
                             mainIntent.putExtra("userTheme", userTheme);
                             mainIntent.putExtra("userEmail", user.getEmailId());
                             mainIntent.putExtra("userName", user.getLoginName());
+                            mainIntent.putExtra("userId", userId.toString());
                             user.setLoggedIn(true);
                             user.setLastLoggedIn(new Date());
                             userRepository.update(user).addListener(() -> startActivity(mainIntent), ContextCompat.getMainExecutor(getApplicationContext()));

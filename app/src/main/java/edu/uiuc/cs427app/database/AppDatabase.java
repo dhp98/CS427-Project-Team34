@@ -12,12 +12,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.uiuc.cs427app.data.dao.UserCityDao;
 import edu.uiuc.cs427app.data.dao.UserDao;
 import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.data.entity.UserCity;
 import edu.uiuc.cs427app.data.util.typeconverters.TimestampConverter;
 import edu.uiuc.cs427app.data.util.typeconverters.UUIDConverter;
 
-@Database(entities = {User.class}, version = 4, exportSchema = true)
+@Database(entities = {User.class, UserCity.class}, version = 7, exportSchema = true)
 @TypeConverters({UUIDConverter.class, TimestampConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase DB_INSTANCE;
@@ -28,6 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
 
     public abstract UserDao userDao();
+    public abstract UserCityDao userCityDao();
 
     /**
      * Get app database singleton instance.
