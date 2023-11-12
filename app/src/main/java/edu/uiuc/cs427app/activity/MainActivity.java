@@ -2,7 +2,9 @@ package edu.uiuc.cs427app.activity;
 import java.util.*;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,12 +46,13 @@ public class MainActivity extends BaseMenuActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     // Retrieve the user's theme preference from the intent
+    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
     int userTheme = getIntent().getIntExtra("userTheme", 0); // Default to 0 if not provided
     userEmail = getIntent().getStringExtra("userEmail");
     userId = getIntent().getStringExtra("userId");
 
     if (!Places.isInitialized()) {
-      Places.initialize(getApplicationContext(), ""); // Replace with your actual API ke
+      Places.initialize(getApplicationContext(), "AIzaSyCvvMPM-uZvya7J8sM0MbJuNHAIl3dG8GI"); // Replace with your actual API ke
     }
 
     PlacesClient placesClient = Places.createClient(this);
