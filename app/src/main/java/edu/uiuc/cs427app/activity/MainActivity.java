@@ -80,7 +80,7 @@ public class MainActivity extends BaseMenuActivity {
           newLocations.clear();
           if (userCityList != null) {
             for (UserCity userCity : userCityList) {
-              newLocations.add(userCity.getCityName());
+              newLocations.add(userCity.getCityName()+","+userCity.getState()+","+userCity.getCountry());
             }
           }
           // Now that newLocations has been updated, notify the adapter
@@ -90,6 +90,7 @@ public class MainActivity extends BaseMenuActivity {
           listView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedCity = newLocations.get(position);
             Intent intent = new Intent(MainActivity.this, CityActivity.class);
+            intent.putExtra("cityName", selectedCity);
             intent.putExtra("cityName", selectedCity);
             startActivity(intent);
           });
