@@ -68,7 +68,7 @@ public class weather_acitivity extends AppCompatActivity {
                 JSONObject weath = new JSONObject(get_data.get("weather").toString());
 
 
-                Temperature2.setText(get_data.get("temp").toString());
+                Temperature2.setText(get_data.get("temp").toString()+" ºF");
                 weather.setText(weath.get("description").toString());
                 wind.setText(String.format("%.2f",get_data.get("wind_spd") ));
                 Humidity.setText(get_data.get("rh").toString());
