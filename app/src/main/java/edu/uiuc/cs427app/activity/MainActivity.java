@@ -49,7 +49,7 @@ public class MainActivity extends BaseMenuActivity {
     userId = getIntent().getStringExtra("userId");
 
     if (!Places.isInitialized()) {
-      Places.initialize(getApplicationContext(), ""); // Replace with your actual API ke
+      Places.initialize(getApplicationContext(), "AIzaSyCvvMPM-uZvya7J8sM0MbJuNHAIl3dG8GI"); // Replace with your actual API ke
     }
 
     PlacesClient placesClient = Places.createClient(this);
@@ -77,7 +77,7 @@ public class MainActivity extends BaseMenuActivity {
           newLocations.clear();
           if (userCityList != null) {
             for (UserCity userCity : userCityList) {
-              newLocations.add(userCity.getCityName());
+              newLocations.add(userCity.getCityName()+","+userCity.getState()+","+userCity.getCountry());
             }
           }
           // Now that newLocations has been updated, notify the adapter
@@ -87,6 +87,7 @@ public class MainActivity extends BaseMenuActivity {
           listView.setOnItemClickListener((parent, view, position, id) -> {
             String selectedCity = newLocations.get(position);
             Intent intent = new Intent(MainActivity.this, CityActivity.class);
+            intent.putExtra("cityName", selectedCity);
             intent.putExtra("cityName", selectedCity);
             startActivity(intent);
           });

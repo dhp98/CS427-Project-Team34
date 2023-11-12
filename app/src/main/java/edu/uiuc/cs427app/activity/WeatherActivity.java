@@ -19,16 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class weather_acitivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity {
     TextView weather;
     TextView Temperature2;
     TextView Humidity;
     TextView wind;
     TextView city2;
     TextView date;
-
-
-
 
 
     @Override
@@ -42,18 +39,14 @@ public class weather_acitivity extends AppCompatActivity {
          city2=findViewById(R.id.city22);
         date=findViewById(R.id.date2);
 
-
-
-        String city = getIntent().getStringExtra("city");
-
-
-
-
-
+        String[] parts = getIntent().getStringExtra("city").split(",");
+        String city = parts[0];
+        String state = parts[1];
+        String country = parts[2];
 
     RequestQueue queue2 = Volley.newRequestQueue(this);
 
-    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&key=";
+    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&state="+state+"&country"+country+"&key=0886b82915b746d69e8c893a4bd5fe61";
     StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
@@ -67,15 +60,38 @@ public class weather_acitivity extends AppCompatActivity {
                 JSONObject get_data= new JSONObject(array.get(0).toString());
                 JSONObject weath = new JSONObject(get_data.get("weather").toString());
 
+                if (get_data.has("temp")) {
+                    Temperature2.setText(get_data.get("temp").toString() + " ºC");
+                } else {
+                    Temperature2.setText("");
+                }
 
-                Temperature2.setText(get_data.get("temp").toString()+" ºF");
-                weather.setText(weath.get("description").toString());
-                wind.setText(String.format("%.2f",get_data.get("wind_spd") ));
-                Humidity.setText(get_data.get("rh").toString());
-                city2.setText(city);
-                date.setText(get_data.get("ob_time").toString());
+                if (weath.has("description")) {
+                    weather.setText(weath.get("description").toString());
+                } else {
+                    weather.setText("");
+                }
 
-                //Log.e("yaounde", ss);
+                if (get_data.has("wind_spd")) {
+                    wind.setText(String.format("%.2f", get_data.get("wind_spd")));
+                } else {
+                    wind.setText("");
+                }
+
+                if (get_data.has("rh")) {
+                    Humidity.setText(get_data.get("rh").toString());
+                } else {
+                    Humidity.setText("");
+                }
+
+                city2.setText(city != null ? city : "");
+
+                if (get_data.has("ob_time")) {
+                    date.setText(get_data.get("ob_time").toString());
+                } else {
+                    date.setText("");
+                }
+
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
