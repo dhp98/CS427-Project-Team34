@@ -10,18 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import androidx.appcompat.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+
 import edu.uiuc.cs427app.R;
 import edu.uiuc.cs427app.data.entity.UserCity;
 import edu.uiuc.cs427app.data.repository.UserRepository;
 import edu.uiuc.cs427app.data.repository.UserCityRepository;
-import edu.uiuc.cs427app.data.entity.User;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.libraries.places.api.model.Place;
