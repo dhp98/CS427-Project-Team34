@@ -53,7 +53,7 @@ public class weather_acitivity extends AppCompatActivity {
 
     RequestQueue queue2 = Volley.newRequestQueue(this);
 
-    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&key=0886b82915b746d69e8c893a4bd5fe61";
+    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&key=";
     StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {

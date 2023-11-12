@@ -11,12 +11,16 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-    <TextView
+        <EditText
+
+            android:editable="false"
         android:id="@+id/city22"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="30dp"
         android:text=""
+
+
         />
         <TextView
             android:id="@+id/date2"
@@ -26,40 +30,49 @@
 
             android:text=""
             android:layout_marginTop="-40dp"
+            android:textSize="25dp"
             />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
 
+        <EditText
 
-        <TextView
+            android:editable="false"
             android:id="@+id/Temperature2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:inputType="text"
             android:minHeight="48dp"
+            android:textSize="25dp"
             android:text="Temperature "
             android:textStyle="bold"
 
-            android:textSize="25dp" />
+             />
 
 
         <TextView
             android:id="@+id/Temperature"
-            android:layout_width="149dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20sp"
-            android:gravity="end"
-            android:inputType="text"
-            android:text=" "
-            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="right"
+
+            android:text=""
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="-78dp"
+            android:textSize="25dp"
             />
 
-        <TextView
-            android:id="@+id/Weather2"
-            android:layout_width="122dp"
+        <EditText
+
+            android:editable="false"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20sp"
             android:inputType="text"
             android:minHeight="48dp"
+
             android:text="Weather"
 
             android:textSize="25dp"
@@ -68,15 +81,18 @@
 
         <TextView
             android:id="@+id/Weather"
-            android:layout_width="151dp"
-            android:layout_height="37dp"
-            android:layout_margin="20sp"
-            android:gravity="end"
-            android:inputType="text"
-            android:text=" "
-            android:textSize="20dp" />
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="right"
 
-        <TextView
+            android:text=""
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="-78dp"
+            android:textSize="25dp"/>
+
+        <EditText
+
+            android:editable="false"
             android:id="@+id/Humidity2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,16 +106,19 @@
     <TextView
         android:id="@+id/Humidity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        android:inputType="text"
-        android:text=" "
-        android:textSize="20dp"
-        android:gravity="end"
+        android:layout_height="50dp"
+        android:gravity="right"
+
+        android:text=""
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="-78dp"
+        android:textSize="25dp"
         />
 
 
-        <TextView
+        <EditText
+
+            android:editable="false"
             android:id="@+id/Wind_condition2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -113,12 +132,13 @@
     <TextView
         android:id="@+id/Wind_condition"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        android:inputType="text"
-        android:text=" "
-        android:textSize="20dp"
-        android:gravity="end"
+        android:layout_height="50dp"
+        android:gravity="right"
+
+        android:text=""
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="-78dp"
+        android:textSize="25dp"
 
         />
 
