@@ -133,41 +133,42 @@ Go over the implementation and integration details for each task.
 
 <b>Week 6</b>
 </br>
-Members present: List the NetID of the people who attended the meeting
+Members present: dhyeyhp2, yifeik3, jyao27, ntankeu2, aditiw2, ruihaoz2, jawadr2
 </br>
-Meeting notes: Explain the overall team progress and a summary of discussion
+Meeting notes: 
+1. Go through milestone4 instructions.
+2. Team member claim tasks for milestone4.
 </br>
 
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
+| dhyeyhp2       | Finish task3; Think about feature would like to take and methods may need to use for milestone4 |work on city verification
+| yifeik3        | Finish task2; Think about feature would like to take and methods may need to use for milestone4 |work on page modification
+| jyao27         | Organize team discussion for milestone4 and prepare for final tests |work on page modification, updates meeting notes and check progress
+| ntankeu2       | Finish task1; Think about feature would like to take and methods may need to use for milestone4 |work on weather information             
+| aditiw2        | Finish task1; Think about feature would like to take and methods may need to use for milestone4 |work on weather information  
+| ruihaoz2       | Finish task3; Think about feature would like to take and methods may need to use for milestone4 |work on interactive map
+| jawadr2        | Finish task2; Think about feature would like to take and methods may need to use for milestone4 |work on interactive map
 </br>
 
 
 <b>Week 7</b>
 </br>
-Members present: List the NetID of the people who attended the meeting
+Members present: dhyeyhp2, yifeik3, ntankeu2, aditiw2, ruihaoz2, jawadr2
 </br>
-Meeting notes: Explain the overall team progress and a summary of discussion
+Meeting notes:
+Go over the implementation and integration details for each task.
 </br>
 
 | NetID          | Progress from last week         | Tasks for next week   |
 | ---------------| --------------------------------| ----------------------|
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
-|                |                                 |                       |
+| dhyeyhp2       | Finish city verification and final demo for milestone4, peer review |Prepare for testing
+| yifeik3        | Finish page modification, peer review |Prepare for testing
+| jyao27         | Finish page modification, updates meeting notes and check progress, peer review |Prepare for testing
+| ntankeu2       | Finish weather information, peer review |Prepare for testing             
+| aditiw2        | Finish weather information, peer review |Prepare for testing 
+| ruihaoz2       | Finish interactive map, peer review|Prepare for testing
+| jawadr2        | Finish interactive map, peer review|Prepare for testing
 </br>
 
 
