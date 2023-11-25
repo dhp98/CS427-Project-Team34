@@ -90,7 +90,7 @@ public class UserSignupTest {
     }
 
     @Test
-    public void checkLoginShouldFailWhenEmailIsEmpty() throws InterruptedException {
+    public void checkSignupShouldFailWhenEmailIsEmpty() throws InterruptedException {
         performSignup("", SIGNUP_PASSWORD_TO_USE, SIGNUP_PASSWORD_TO_USE);
 
         // Assert new user was not added to database
