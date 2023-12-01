@@ -41,36 +41,29 @@ public class RemoveCityTests {
     public ActivityScenarioRule<MainActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MainActivity.class);
 
-//    @Test
-//    public void checkRemoveMessage()  {
-//
-//        // Press the AddLocation button.
-//        onView(withId(R.id.buttonRemoveLocation)).perform(click());
-//        // By clicking on the button, the test navigates to a new activity
-//        // Espresso takes care of this transition and will consider that into account for accessing the widgets
-//
-//        // Check if the text that appears in the next activity matches with the welcome message for Chicago
-//        // "matches" is equivalent to assertion here, e.g., assertEqual
-//        onView(withId(R.id.buttonRemoveLocation)).check(matches(withText("Enter Location to remove")));
-//    }
-
     @Test
-    public void removeCityWithInputConfirmation() {
-        // Click the "Remove Location" button
-        onView(withId(R.id.buttonRemoveLocation)).perform(ViewActions.click());
+    public void testRemoveLocation() {
+        // Input for location removal
+        String locationToRemove = "New York";
 
-        // Check if the dialog message "Enter Location to remove" is displayed
+        // Simulate click on the remove location button
+        onView(ViewMatchers.withId(R.id.buttonRemoveLocation)).perform(ViewActions.click());
+
+        // Verify if the AlertDialog is displayed
         onView(withText("Enter Location to remove")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
-        // Enter text in the input dialog
-        String cityNameToRemove = "CityName"; // Replace with the city name you want to remove
-        onView(withId(android.R.id.input)).perform(ViewActions.typeText(cityNameToRemove), closeSoftKeyboard());
+        // Input text into the EditText in the AlertDialog
+        onView(ViewMatchers.withId(android.R.id.edit)).perform(ViewActions.typeText(locationToRemove));
 
-        // Click on the positive button in the dialog (assuming the OK/Confirm button has an ID "android.R.id.button1")
-        onView(withId(android.R.id.button1)).perform(ViewActions.click());
+        // Click on the positive button "Remove" in the AlertDialog
+        onView(withText("Remove")).perform(ViewActions.click());
 
-        // Verify if the city has been removed from the list
+        // Here you can add verification steps based on the expected behavior after removal,
+        // such as verifying the updated list view contents or other UI changes.
+        // For example, assuming the list view has an ID of R.id.listView:
+
+        // Verify that the list view has been updated after removal
         onView(withId(R.id.listView))
-                .check(ViewAssertions.matches(Matchers.not(hasDescendant(withText(cityNameToRemove)))));
+                .check(ViewAssertions.matches(Matchers.not(hasDescendant(withText(locationToRemove)))));
     }
 }
