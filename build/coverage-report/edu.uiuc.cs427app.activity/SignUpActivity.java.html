@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SignUpActivity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.activity</a> &gt; <span class="el_source">SignUpActivity.java</span></div><h1>SignUpActivity.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.Date;
+
+import edu.uiuc.cs427app.R;
+import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.data.repository.UserRepository;
+import edu.uiuc.cs427app.util.ToastMessageHandler;
+
+/**
+ * Allows end user to sign up for using the application
+ */
+<span class="nc" id="L22">public class SignUpActivity extends AppCompatActivity {</span>
+    EditText userName, email, password, confirmPassword;
+    Button signUp;
+    Button buttonChooseTheme;
+<span class="nc" id="L26">    int selectedTheme = 1;</span>
+
+    /**
+     * Performs initialization of all fragments
+     *
+     * @param savedInstanceState - bundle reference to restore
+     *                           to a previous state using data store in the bundle -
+     *                           is always null during first time creation of activity
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L37">        super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L38">        setContentView(R.layout.activity_register);</span>
+
+        //Show the Theme Name when clicking the &quot;Choose Theme&quot;
+<span class="nc" id="L41">        buttonChooseTheme = findViewById(R.id.buttonChooseTheme);</span>
+<span class="nc" id="L42">        buttonChooseTheme.setOnClickListener(new View.OnClickListener() {</span>
+            @Override
+            public void onClick(View v) {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                if (selectedTheme == 1) {</span>
+<span class="nc" id="L46">                    selectedTheme = 2;</span>
+<span class="nc" id="L47">                    Toast.makeText(SignUpActivity.this, &quot;Sky blue&quot;, Toast.LENGTH_SHORT).show();</span>
+                }
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                else if (selectedTheme == 2) {</span>
+<span class="nc" id="L50">                    selectedTheme = 3;</span>
+<span class="nc" id="L51">                    Toast.makeText(SignUpActivity.this, &quot;Teal blue&quot;, Toast.LENGTH_SHORT).show();</span>
+                }
+                else {
+<span class="nc" id="L54">                    selectedTheme = 1;</span>
+<span class="nc" id="L55">                    Toast.makeText(SignUpActivity.this, &quot;Illini blue&quot;, Toast.LENGTH_SHORT).show();</span>
+                }
+<span class="nc" id="L57">            }</span>
+        });
+
+
+        //assign variables for accessing values in UI elements
+<span class="nc" id="L62">        email = findViewById(R.id.userEmail);</span>
+<span class="nc" id="L63">        password = findViewById(R.id.userPassword);</span>
+<span class="nc" id="L64">        confirmPassword = findViewById(R.id.confirmPassword);</span>
+<span class="nc" id="L65">        signUp = findViewById(R.id.signUp);</span>
+
+
+        // register a listener to handle the click events of sign up button
+<span class="nc" id="L69">        signUp.setOnClickListener(new View.OnClickListener() {</span>
+            /**
+             * Invoked when sign up button gets clicked
+             * Leverage the same to save the registering user
+             * information to DB - once entries are validated
+             *
+             * @param view
+             */
+            @Override
+            public void onClick(View view) {
+                // Initialize user model
+<span class="nc" id="L80">                User user = new User();</span>
+                //Storing the values from UI to the model
+                // Split email by the ampersand `@` character.
+                // Edge case might be that the email provided contains multiple `@` characters.
+                // In that case, the username can be obtained by splitting by `@` character and joining
+                // all the elements of the array except the last one. This handles the normal case perfectly as well
+<span class="nc" id="L86">                user.setEmailId(email.getText().toString().trim());</span>
+<span class="nc" id="L87">                user.setPassword(password.getText().toString().trim());</span>
+<span class="nc" id="L88">                user.setLoginName(email.getText().toString());</span>
+<span class="nc" id="L89">                user.setCreatedOn(new Date());</span>
+<span class="nc" id="L90">                user.setLastModified(new Date());</span>
+<span class="nc" id="L91">                user.setCurrentTheme(selectedTheme);</span>
+<span class="nc" id="L92">                user.setLoggedIn(false);</span>
+
+                //if the details entered by the user are valid, add the model to the database
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                if (isValidSignUp(user, confirmPassword.getText().toString().trim())) {</span>
+<span class="nc" id="L96">                    UserRepository userRepository = new UserRepository(getApplicationContext());</span>
+<span class="nc" id="L97">                    new Thread(() -&gt; {</span>
+<span class="nc" id="L98">                        userRepository.insert(user);</span>
+<span class="nc" id="L99">                        runOnUiThread(() -&gt; {</span>
+<span class="nc" id="L100">                            ToastMessageHandler.popToastMessage(getApplicationContext(),</span>
+                                    &quot;Signed up successfully!&quot;,
+                                    Toast.LENGTH_LONG);
+<span class="nc" id="L103">                        });</span>
+<span class="nc" id="L104">                        startActivity(new Intent(SignUpActivity.this, SignInActivity.class).putExtra(&quot;userEmail&quot;, user.getEmailId()));</span>
+<span class="nc" id="L105">                    }).start();</span>
+<span class="nc" id="L106">                }</span>
+                //if the details entered by the user are invalid, do not add the model to the database
+                else {
+<span class="nc" id="L109">                    ToastMessageHandler.popToastMessage(getApplicationContext(),</span>
+                            &quot;Something is not right. Please double check all the fields&quot;,
+                            Toast.LENGTH_LONG);
+                }
+<span class="nc" id="L113">            }</span>
+        });
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * Method for validating the inputs given by the user.
+     *
+     * @param userEntity      user data that is being checked for validity this data is user input in the sign up window
+     * @param confirmPassword user input password that is being checked for validity
+     * @return boolean indicating whether the sign up info is valid.
+     */
+    private Boolean isValidSignUp(User userEntity, String confirmPassword) {
+<span class="nc bnc" id="L125" title="All 4 branches missed.">        if (userEntity.getLoginName().isEmpty() || userEntity.getPassword().isEmpty()) {</span>
+<span class="nc" id="L126">            return false;</span>
+<span class="nc" id="L127">        } else return userEntity.getPassword().equals(confirmPassword);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

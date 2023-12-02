@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SignInActivity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.activity</a> &gt; <span class="el_source">SignInActivity.java</span></div><h1>SignInActivity.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.Date;
+import java.util.UUID;
+
+import edu.uiuc.cs427app.R;
+import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.data.repository.UserRepository;
+import edu.uiuc.cs427app.util.ToastMessageHandler;
+
+/**
+ *  Allows 
+ *  user to sign in using
+ *  email and password.
+ */
+<span class="nc" id="L27">public class SignInActivity extends AppCompatActivity {</span>
+    EditText email, password;
+    Button logIn;
+
+    /**
+     * Performs initialization of all fragments
+     * @param savedInstanceState - bundle reference to restore
+     * to a previous state using data store in the bundle -
+     * is always null during first time creation of activity
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L39">        super.onCreate(savedInstanceState);</span>
+
+        //assign variables for accessing values in UI elements
+<span class="nc" id="L42">        setContentView(R.layout.activity_sign_in);</span>
+<span class="nc" id="L43">        email = findViewById(R.id.userEmail);</span>
+<span class="nc" id="L44">        password = findViewById(R.id.userPassword);</span>
+<span class="nc" id="L45">        logIn = findViewById(R.id.userLogin);</span>
+        
+        // Process the intent Payload
+<span class="nc" id="L48">        String userEmail = getIntent().getStringExtra(&quot;userEmail&quot;);</span>
+<span class="nc" id="L49">        String logoutMessage = getIntent().getStringExtra(&quot;logoutMessage&quot;);</span>
+
+<span class="nc bnc" id="L51" title="All 4 branches missed.">        if (logoutMessage != null &amp;&amp; !logoutMessage.isEmpty()) {</span>
+<span class="nc" id="L52">            runOnUiThread(() -&gt; {Toast.makeText(getApplicationContext(), logoutMessage, Toast.LENGTH_SHORT).show();});</span>
+        }
+
+        //Check if email is not empty
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (userEmail != null &amp;&amp; !userEmail.isEmpty()) {</span>
+<span class="nc" id="L57">            email.setText(userEmail);</span>
+        }
+
+        // adds a on click listener handler
+<span class="nc" id="L61">        logIn.setOnClickListener(view -&gt; {</span>
+            //Store email and password entered by user in varibles
+<span class="nc" id="L63">            String userEmail1 = email.getText().toString().trim();</span>
+<span class="nc" id="L64">            String userPassword = password.getText().toString().trim();</span>
+
+            //Base case to check if the email and password are not null
+<span class="nc bnc" id="L67" title="All 4 branches missed.">            if (userEmail1.isEmpty() || userPassword.isEmpty()) {</span>
+<span class="nc" id="L68">                ToastMessageHandler.popToastMessage(getApplicationContext(),</span>
+                        &quot;Email and password are required&quot;,
+                        Toast.LENGTH_SHORT);
+            } 
+            //if the details are not empty process the login for user
+            else {
+<span class="nc" id="L74">                Log.d(&quot;LOGIN_ACTIVITY&quot;, &quot;Login button was clicked&quot;);</span>
+<span class="nc" id="L75">                Intent mainIntent = new Intent(SignInActivity.this, MainActivity.class);</span>
+<span class="nc" id="L76">                mainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);</span>
+<span class="nc" id="L77">                UserRepository userRepository = new UserRepository(getApplicationContext());</span>
+
+                // check if the entered username and password belongs to a user.
+                // This is done by registering an observer that notifies
+                // when user information in LiveData gets updated.
+<span class="nc" id="L82">                userRepository.login(userEmail1, userPassword).observe(SignInActivity.this, new Observer&lt;User&gt;() {</span>
+                    /**
+                     * Called when user is got from DB and live data gets created/modified.
+                     * @param user -- user entity representing the currently sign in user.
+                     */
+                    @Override
+                    public void onChanged(User user) {
+                        //if the email and password does not belong to a user 
+<span class="nc bnc" id="L90" title="All 2 branches missed.">                        if (user == null) {</span>
+<span class="nc" id="L91">                            runOnUiThread(() -&gt;ToastMessageHandler.popToastMessage(getApplicationContext(),</span>
+                                    &quot;Username and/or password don't match&quot;,
+                                    Toast.LENGTH_LONG));
+                        } 
+                        //if the email and password are valid
+                        else {
+<span class="nc" id="L97">                            int userTheme = user.getCurrentTheme();</span>
+<span class="nc" id="L98">                            UUID userId = user.getId();</span>
+<span class="nc" id="L99">                            mainIntent.putExtra(&quot;userTheme&quot;, userTheme);</span>
+<span class="nc" id="L100">                            mainIntent.putExtra(&quot;userEmail&quot;, user.getEmailId());</span>
+<span class="nc" id="L101">                            mainIntent.putExtra(&quot;userName&quot;, user.getLoginName());</span>
+<span class="nc" id="L102">                            mainIntent.putExtra(&quot;userId&quot;, userId.toString());</span>
+<span class="nc" id="L103">                            user.setLoggedIn(true);</span>
+<span class="nc" id="L104">                            user.setLastLoggedIn(new Date());</span>
+<span class="nc" id="L105">                            userRepository.update(user).addListener(() -&gt; startActivity(mainIntent), ContextCompat.getMainExecutor(getApplicationContext()));</span>
+                        }
+<span class="nc" id="L107">                    }</span>
+                });
+            }
+<span class="nc" id="L110">        });</span>
+<span class="nc" id="L111">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

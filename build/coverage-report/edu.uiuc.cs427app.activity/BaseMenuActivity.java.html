@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseMenuActivity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.activity</a> &gt; <span class="el_source">BaseMenuActivity.java</span></div><h1>BaseMenuActivity.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.activity;
+
+import static java.util.Objects.requireNonNull;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.google.android.libraries.places.api.Places;
+
+import edu.uiuc.cs427app.R;
+import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.data.repository.UserRepository;
+
+<span class="nc" id="L25">public class BaseMenuActivity extends AppCompatActivity implements View.OnClickListener {</span>
+  /**
+   * Initialize App Bar (also called Support Action Bar) to append logged in user name to the
+   * default team name and show the logout button when the user has successfully logged in.
+   *
+   * @param savedInstanceState If you save the state of the application in a bundle (typically
+   *     non-persistent, dynamic data in onSaveInstanceState), it can be passed back to onCreate if
+   *     the activity needs to be recreated (e.g., orientation change) so that you don't lose this
+   *     prior information. If no data was supplied, savedInstanceState is null.
+   */
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+<span class="nc" id="L37">    super.onCreate(savedInstanceState);</span>
+<span class="nc" id="L38">    String userEmail = getIntent().getStringExtra(&quot;userEmail&quot;);</span>
+<span class="nc" id="L39">    UserRepository userRepository = new UserRepository(getApplicationContext());</span>
+    // Method for modifying UI changes for adding a new city
+<span class="nc" id="L41">    Transformations.distinctUntilChanged(userRepository.getByEmail(userEmail))</span>
+<span class="nc" id="L42">            .observe(</span>
+                    BaseMenuActivity.this,
+<span class="nc" id="L44">                    new Observer&lt;User&gt;() {</span>
+                      /**
+                       * This is an callback which will be invoked when the `User` instance has changed.
+                       * This typically happens when a related column is updated or the results of a
+                       * `SELECT` query is returned. Since the `userRepository.getByEmail` method returns a
+                       * `LiveData&lt;User&gt;`, it means Android will keep listening to the underlying query and
+                       * invoke this callback method whenever the data changes. We set the username in the
+                       * app bar, once the user has successfully logged in, inside this callback method.
+                       *
+                       * @param user User instance
+                       */
+                      @Override
+                      public void onChanged(User user) {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                        if (getSupportActionBar() != null) {</span>
+<span class="nc" id="L58">                          String existingText = requireNonNull(getSupportActionBar().getTitle()).toString();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                          if (!existingText.contains(&quot;-&quot;)) {</span>
+<span class="nc" id="L60">                            getSupportActionBar()</span>
+<span class="nc" id="L61">                                    .setTitle(</span>
+<span class="nc" id="L62">                                            String.format(</span>
+                                                    &quot;%s-%s&quot;,
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                                                    getSupportActionBar().getTitle().toString(), user != null ? user.getLoginName() : &quot;&quot;));</span>
+                          }
+                        }
+<span class="nc" id="L67">                      }</span>
+                    });
+<span class="nc" id="L69">  }</span>
+
+  /**
+   * Generic click handler to handle anything clicked inside the main activity
+   *
+   * @param view Current layout view
+   */
+  @Override
+  public void onClick(View view) {
+<span class="nc" id="L78">    Log.d(&quot;On View&quot;, &quot;Resulted in &quot; + view);</span>
+<span class="nc" id="L79">  }</span>
+
+  /**
+   * Add buttons for user actions in app bar
+   *
+   * @param menu Android menu class instanceThe options menu in which you place your items
+   * @return You must return true for the menu to be displayed; if you return false it will not be
+   *     shown.
+   */
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+<span class="nc" id="L90">    MenuInflater menuInflater = getMenuInflater();</span>
+<span class="nc" id="L91">    menuInflater.inflate(R.menu.menubuttons, menu);</span>
+<span class="nc" id="L92">    return true;</span>
+  }
+
+  /**
+   * Prepare the Screen's standard options menu to be displayed. This is called right before the
+   * menu is shown, every time it is shown You can use this method to efficiently enable/disable
+   * items or otherwise dynamically modify the contents
+   *
+   * @param menu The options menu as last shown or first initialized by onCreateOptionsMenu()
+   * @return You must return true for the menu to be displayed; if you return false it will not be
+   *     shown.
+   */
+  @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+<span class="nc" id="L106">    String userEmail = getIntent().getStringExtra(&quot;userEmail&quot;);</span>
+    // Show logout button only if user is signed in
+<span class="nc bnc" id="L108" title="All 4 branches missed.">    return userEmail != null &amp;&amp; !userEmail.isEmpty();</span>
+  }
+
+  /**
+   * This hook is called whenever an item in your options menu is selected
+   *
+   * @param item The menu item that was selected. This value cannot be null.
+   * @return Return false to allow normal menu processing to proceed, true to consume it here.
+   */
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+<span class="nc bnc" id="L119" title="All 2 branches missed.">    switch (item.getItemId()) {</span>
+      case R.id.action_logout:
+<span class="nc" id="L121">        Intent logoutIntent = new Intent(BaseMenuActivity.this, MainActivityFrontPage.class);</span>
+<span class="nc" id="L122">        logoutIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);</span>
+<span class="nc" id="L123">        UserRepository userRepository = new UserRepository(getApplicationContext());</span>
+<span class="nc" id="L124">        userRepository</span>
+<span class="nc" id="L125">                .getByEmail(getIntent().getStringExtra(&quot;userEmail&quot;))</span>
+<span class="nc" id="L126">                .observe(</span>
+                        this,
+<span class="nc" id="L128">                        new Observer&lt;User&gt;() {</span>
+                          @Override
+                          public void onChanged(User user) {
+<span class="nc" id="L131">                            user.setLoggedIn(false);</span>
+<span class="nc" id="L132">                            userRepository</span>
+<span class="nc" id="L133">                                    .update(user)</span>
+<span class="nc" id="L134">                                    .addListener(</span>
+<span class="nc" id="L135">                                            () -&gt; startActivity(logoutIntent),</span>
+<span class="nc" id="L136">                                            ContextCompat.getMainExecutor(getApplicationContext()));</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">                            if (Places.isInitialized()) {</span>
+<span class="nc" id="L138">                              Places.deinitialize();</span>
+                            }
+<span class="nc" id="L140">                          }</span>
+                        });
+        break;
+    }
+<span class="nc" id="L144">    return true;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
