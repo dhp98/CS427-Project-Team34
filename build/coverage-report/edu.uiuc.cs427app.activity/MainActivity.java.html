@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainActivity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.activity</a> &gt; <span class="el_source">MainActivity.java</span></div><h1>MainActivity.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.activity;
+import java.util.*;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import androidx.appcompat.app.AlertDialog;
+
+import edu.uiuc.cs427app.R;
+import edu.uiuc.cs427app.data.entity.UserCity;
+import edu.uiuc.cs427app.data.repository.UserRepository;
+import edu.uiuc.cs427app.data.repository.UserCityRepository;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.AddressComponent;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+
+<span class="fc" id="L31">public class MainActivity extends BaseMenuActivity {</span>
+<span class="fc" id="L32">  private List&lt;String&gt; newLocations = new ArrayList&lt;String&gt;(); //locations array</span>
+  ListView listView;
+<span class="fc" id="L34">  private String deleteLoc = &quot;&quot;;</span>
+  private UserRepository userRepository;
+  private UserCityRepository userCityRepository;
+  private String userEmail;
+  private String userId;
+  private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    // Retrieve the user's theme preference from the intent
+<span class="fc" id="L43">    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);</span>
+<span class="fc" id="L44">    int userTheme = getIntent().getIntExtra(&quot;userTheme&quot;, 0); // Default to 0 if not provided</span>
+<span class="fc" id="L45">    userEmail = getIntent().getStringExtra(&quot;userEmail&quot;);</span>
+<span class="fc" id="L46">    userId = getIntent().getStringExtra(&quot;userId&quot;);</span>
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">    if (!Places.isInitialized()) {</span>
+<span class="fc" id="L49">      Places.initialize(getApplicationContext(), &quot;AIzaSyCvvMPM-uZvya7J8sM0MbJuNHAIl3dG8GI&quot;); // Replace with your actual API ke</span>
+    }
+
+<span class="fc" id="L52">    PlacesClient placesClient = Places.createClient(this);</span>
+    // Set the theme based on the user's preference before calling setContentView
+<span class="fc bfc" id="L54" title="All 2 branches covered.">    if (userTheme == 1) {</span>
+<span class="fc" id="L55">      setTheme(R.style.Theme_MyFirstApp);</span>
+    }
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    else if (userTheme == 2) {</span>
+<span class="nc" id="L58">      setTheme(R.style.Theme_SkyBlue);</span>
+    }
+    else {
+<span class="fc" id="L61">      setTheme(R.style.Theme_TealBlue);</span>
+    }
+
+<span class="fc" id="L64">    super.onCreate(savedInstanceState);</span>
+<span class="fc" id="L65">    setContentView(R.layout.activity_main);</span>
+
+<span class="fc" id="L67">    listView = findViewById(R.id.listView);</span>
+<span class="fc" id="L68">    userRepository = new UserRepository(getApplicationContext()); // Initialize userRepository first</span>
+<span class="fc" id="L69">    userCityRepository = new UserCityRepository(getApplicationContext());</span>
+<span class="fc" id="L70">    userRepository.getByEmail(userEmail).observe(this, user -&gt; {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">      if (user != null) {</span>
+        // Observe the LiveData for user cities from the UserCityRepository
+<span class="fc" id="L73">        userCityRepository.getUserCitiesByUserId(userId).observe(this, userCityList -&gt; {</span>
+<span class="fc" id="L74">          newLocations.clear();</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">          if (userCityList != null) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            for (UserCity userCity : userCityList) {</span>
+<span class="fc" id="L77">              newLocations.add(userCity.getCityName()+&quot;,&quot;+userCity.getState()+&quot;,&quot;+userCity.getCountry());</span>
+<span class="fc" id="L78">            }</span>
+          }
+          // Now that newLocations has been updated, notify the adapter
+<span class="fc" id="L81">          ArrayAdapter&lt;String&gt; adapter = new ArrayAdapter&lt;&gt;(MainActivity.this,</span>
+                  android.R.layout.simple_list_item_1, android.R.id.text1, newLocations);
+<span class="fc" id="L83">          listView.setAdapter(adapter);</span>
+<span class="fc" id="L84">          listView.setOnItemClickListener((parent, view, position, id) -&gt; {</span>
+<span class="fc" id="L85">            String selectedCity = newLocations.get(position);</span>
+<span class="fc" id="L86">            Intent intent = new Intent(MainActivity.this, CityActivity.class);</span>
+<span class="fc" id="L87">            intent.putExtra(&quot;cityName&quot;, selectedCity);</span>
+<span class="fc" id="L88">            intent.putExtra(&quot;cityName&quot;, selectedCity);</span>
+<span class="fc" id="L89">            startActivity(intent);</span>
+<span class="fc" id="L90">          });</span>
+<span class="fc" id="L91">        });</span>
+      }
+<span class="fc" id="L93">    });</span>
+
+<span class="fc" id="L95">    Button buttonAdd = findViewById(R.id.buttonAddLocation);</span>
+<span class="fc" id="L96">    Button buttonDel = findViewById(R.id.buttonRemoveLocation);</span>
+<span class="fc" id="L97">    buttonAdd.setOnClickListener(this);</span>
+<span class="fc" id="L98">    buttonDel.setOnClickListener(this);</span>
+
+<span class="fc" id="L100">  }</span>
+  @Override
+  public void onClick(View view) {
+    Intent intent;
+<span class="pc bpc" id="L104" title="1 of 3 branches missed.">    switch (view.getId()) {</span>
+      //case for adding a location
+      case R.id.buttonAddLocation:
+//
+<span class="fc" id="L108">        List&lt;Place.Field&gt; fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS);</span>
+<span class="fc" id="L109">        Intent intent2 = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)</span>
+<span class="fc" id="L110">                .build(this);</span>
+<span class="fc" id="L111">        startActivityForResult(intent2, AUTOCOMPLETE_REQUEST_CODE);</span>
+<span class="fc" id="L112">        break;</span>
+      //case for removing a location
+      case R.id.buttonRemoveLocation:
+<span class="fc" id="L115">        AlertDialog.Builder removeDialog = new AlertDialog.Builder(this);</span>
+<span class="fc" id="L116">        removeDialog.setMessage(&quot;Enter Location to remove&quot;);</span>
+<span class="fc" id="L117">        final EditText inputRemove = new EditText(this);</span>
+<span class="fc" id="L118">        removeDialog.setView(inputRemove);</span>
+<span class="fc" id="L119">        removeDialog.setPositiveButton(&quot;Remove&quot;, (dialog, which) -&gt; {</span>
+<span class="fc" id="L120">          String cityToRemove = inputRemove.getText().toString().trim();</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">          if (!cityToRemove.isEmpty()) {</span>
+            // Since we don't have a unique identifier for the city entry, we need to fetch the city and then delete it
+<span class="fc" id="L123">            userCityRepository.getUserCitiesByUserId(userId).observe(this, userCities -&gt; {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">              for (UserCity userCity : userCities) {</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                if (userCity.getCityName().equals(cityToRemove)) {</span>
+<span class="fc" id="L126">                  userCityRepository.delete(userCity); // Remove from UserCity table.</span>
+<span class="fc" id="L127">                  newLocations.remove(cityToRemove); // Update the local list</span>
+<span class="fc" id="L128">                  ((ArrayAdapter) listView.getAdapter()).notifyDataSetChanged(); // Notify the adapter to refresh the list</span>
+<span class="fc" id="L129">                  break; // Break the loop once we find the match</span>
+                }
+<span class="fc" id="L131">              }</span>
+<span class="fc" id="L132">            });</span>
+          }
+<span class="fc" id="L134">        });</span>
+
+<span class="fc" id="L136">        AlertDialog alertDialo = removeDialog.create();</span>
+<span class="fc" id="L137">        alertDialo.show();</span>
+        break;
+    }
+<span class="fc" id="L140">  }</span>
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+<span class="fc" id="L144">    super.onActivityResult(requestCode, resultCode, data);</span>
+
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">    if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">      if (resultCode == RESULT_OK) {</span>
+<span class="fc" id="L148">        Place place = Autocomplete.getPlaceFromIntent(data);</span>
+<span class="fc" id="L149">        String cityName = place.getName();</span>
+<span class="fc" id="L150">        String state = &quot;&quot;;</span>
+<span class="fc" id="L151">        String country = &quot;&quot;;</span>
+<span class="fc" id="L152">        double latitude = 0;</span>
+<span class="fc" id="L153">        double longitude = 0;</span>
+
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        for (AddressComponent component : place.getAddressComponents().asList()) {</span>
+<span class="fc" id="L156">          String type = component.getTypes().get(0);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">          if (type.equals(&quot;administrative_area_level_1&quot;)) {</span>
+<span class="fc" id="L158">            state = component.getName();</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">          } else if (type.equals(&quot;country&quot;)) {</span>
+<span class="fc" id="L160">            country = component.getName();</span>
+          }
+<span class="fc" id="L162">        }</span>
+
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">        if (place.getLatLng() != null) {</span>
+<span class="nc" id="L165">          latitude = place.getLatLng().latitude;</span>
+<span class="nc" id="L166">          longitude = place.getLatLng().longitude;</span>
+        }
+
+<span class="fc" id="L169">        UserCity userCity = new UserCity(userId, cityName, state, country, latitude, longitude);</span>
+<span class="fc" id="L170">        userCityRepository.insert(userCity);</span>
+<span class="fc" id="L171">        newLocations.add(cityName);</span>
+<span class="fc" id="L172">        ((ArrayAdapter) listView.getAdapter()).notifyDataSetChanged();</span>
+<span class="pc bnc" id="L173" title="All 2 branches missed.">      } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {</span>
+<span class="nc" id="L174">        Status status = Autocomplete.getStatusFromIntent(data);</span>
+        // Handle the error.
+      }
+    }
+<span class="fc" id="L178">  }</span>
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
