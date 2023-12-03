@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.data.repository</a> &gt; <span class="el_source">UserRepository.java</span></div><h1>UserRepository.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.data.repository;
+
+import android.content.Context;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.LiveData;
+
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import edu.uiuc.cs427app.data.dao.UserDao;
+import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.database.AppDatabase;
+
+public class UserRepository {
+    private final UserDao userDao;
+    private final LiveData&lt;List&lt;User&gt;&gt; allUsers;
+
+    /**
+     * Create an instance of the user repository.
+     * This is a wrapper around the UserDao so that we don't have to inject the DAO and Entity in
+     * the presentation layer.
+     * @param context application context
+     */
+<span class="nc" id="L31">    public UserRepository(Context context) {</span>
+<span class="nc" id="L32">        AppDatabase database = AppDatabase.getDatabase(context.getApplicationContext());</span>
+<span class="nc" id="L33">        this.userDao = database.userDao();</span>
+<span class="nc" id="L34">        this.allUsers = userDao.getAllUsersObservable();</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Get all users with an observable interface
+     * @return User list
+     */
+    public LiveData&lt;List&lt;User&gt;&gt; getAllUsersObservable() {
+<span class="nc" id="L42">        return allUsers;</span>
+    }
+
+    /**
+     * Insert user asynchronously
+     * @param user User instance
+     */
+    public void insert(User user) {
+<span class="nc" id="L50">        new InsertUserAsyncTask(userDao).execute(user);</span>
+<span class="nc" id="L51">    }</span>
+
+    /**
+     * Update user asynchronously
+     * @param user User instance
+     * @return ListenableFuture interface to listen for completion
+     */
+    public ListenableFuture&lt;Void&gt; update(User user) {
+<span class="nc" id="L59">        return userDao.update(user);</span>
+    }
+
+    /**
+     * Delete user asynchronously
+     * @param user User instance
+     */
+    public void delete(User user) {
+<span class="nc" id="L67">        new DeleteUserAsyncTask(userDao).execute(user);</span>
+<span class="nc" id="L68">    }</span>
+
+    /**
+     * Get user by email and password with an observable interface
+     * @param email user email
+     * @param password user password
+     * @return User
+     */
+    public LiveData&lt;User&gt; login(String email, String password) {
+<span class="nc" id="L77">        return userDao.login(email, password);</span>
+    }
+
+    /**
+     * Get user by email with an observable interface
+     * @param email user email
+     * @return User
+     */
+    public LiveData&lt;User&gt; getByEmail(String email) {
+<span class="nc" id="L86">        return userDao.getByEmail(email);</span>
+    }
+
+    /**
+     * Get user by email synchronously
+     * @param email user email
+     * @return User
+     */
+    public User getByEmailSync(String email) {
+<span class="nc" id="L95">        return userDao.getByEmailSync(email);</span>
+    }
+
+    /**
+     * Insert user async task
+     */
+    private static class InsertUserAsyncTask extends AsyncTask&lt;User, Void, Void&gt; {
+        private final UserDao userDao;
+
+        /**
+         * Create instance of Async task to insert user
+         * @param userDao UserDao instance
+         */
+<span class="nc" id="L108">        private InsertUserAsyncTask(UserDao userDao) {</span>
+<span class="nc" id="L109">            this.userDao = userDao;</span>
+<span class="nc" id="L110">        }</span>
+
+        /**
+         * Do operation in background without blocking main thread
+         * @param users User
+         * @return null
+         */
+        @Override
+        protected Void doInBackground(User... users) {
+<span class="nc" id="L119">            userDao.insert(users[0]);</span>
+<span class="nc" id="L120">            return null;</span>
+        }
+    }
+
+    /**
+     * Delete user async task
+     */
+    private static class DeleteUserAsyncTask extends AsyncTask&lt;User, Void, Void&gt; {
+        private final UserDao userDao;
+
+        /**
+         * Create instance of Async task to insert user
+         * @param userDao UserDao instance
+         */
+<span class="nc" id="L134">        private DeleteUserAsyncTask(UserDao userDao) {</span>
+<span class="nc" id="L135">            this.userDao = userDao;</span>
+<span class="nc" id="L136">        }</span>
+
+        /**
+         * Do operation in background without blocking main thread
+         * @param users User
+         * @return null
+         */
+        @Override
+        protected Void doInBackground(User... users) {
+<span class="nc" id="L145">            userDao.delete(users[0]);</span>
+<span class="nc" id="L146">            return null;</span>
+        }
+    }
+
+
+    /**
+     * Add a city to a user's city list.
+     * @param email User's email
+     * @param city The city to add
+     */
+    public void addCity(String email, String city) {
+<span class="nc" id="L157">        new ModifyCityAsyncTask(userDao, ModifyAction.ADD).execute(email, city);</span>
+<span class="nc" id="L158">    }</span>
+
+    /**
+     * Remove a city from a user's city list.
+     * @param email User's email
+     * @param city The city to remove
+     */
+    public void removeCity(String email, String city) {
+<span class="nc" id="L166">        new ModifyCityAsyncTask(userDao, ModifyAction.REMOVE).execute(email, city);</span>
+<span class="nc" id="L167">    }</span>
+
+<span class="nc" id="L169">    private enum ModifyAction { ADD, REMOVE }</span>
+
+    private static class ModifyCityAsyncTask extends AsyncTask&lt;String, Void, Void&gt; {
+        private final UserDao userDao;
+        private final ModifyAction action;
+
+<span class="nc" id="L175">        private ModifyCityAsyncTask(UserDao userDao, ModifyAction action) {</span>
+<span class="nc" id="L176">            this.userDao = userDao;</span>
+<span class="nc" id="L177">            this.action = action;</span>
+<span class="nc" id="L178">        }</span>
+
+        @Override
+        protected Void doInBackground(String... params) {
+<span class="nc" id="L182">            String email = params[0];</span>
+<span class="nc" id="L183">            String city = params[1];</span>
+<span class="nc" id="L184">            User user = userDao.getByEmailSync(email);</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">            if (user == null) return null;</span>
+
+<span class="nc" id="L187">            String cityListStr = user.getCityList();</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            List&lt;String&gt; cityList = cityListStr == null ? new ArrayList&lt;&gt;() : new ArrayList&lt;&gt;(Arrays.asList(cityListStr.split(&quot;,&quot;)));</span>
+
+<span class="nc bnc" id="L190" title="All 4 branches missed.">            if (action == ModifyAction.ADD &amp;&amp; !cityList.contains(city)) {</span>
+<span class="nc" id="L191">                cityList.add(city);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">            } else if (action == ModifyAction.REMOVE) {</span>
+<span class="nc" id="L193">                cityList.remove(city);</span>
+            }
+<span class="nc" id="L195">            user.setCityList(String.join(&quot;,&quot;, cityList));</span>
+<span class="nc" id="L196">            userDao.update(user);</span>
+<span class="nc" id="L197">            return null;</span>
+        }
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

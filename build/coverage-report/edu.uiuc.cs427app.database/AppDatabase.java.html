@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppDatabase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.database</a> &gt; <span class="el_source">AppDatabase.java</span></div><h1>AppDatabase.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.database;
+
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import edu.uiuc.cs427app.data.dao.UserCityDao;
+import edu.uiuc.cs427app.data.dao.UserDao;
+import edu.uiuc.cs427app.data.entity.User;
+import edu.uiuc.cs427app.data.entity.UserCity;
+import edu.uiuc.cs427app.data.util.typeconverters.TimestampConverter;
+import edu.uiuc.cs427app.data.util.typeconverters.UUIDConverter;
+
+@Database(entities = {User.class, UserCity.class}, version = 7, exportSchema = true)
+@TypeConverters({UUIDConverter.class, TimestampConverter.class})
+<span class="nc" id="L24">public abstract class AppDatabase extends RoomDatabase {</span>
+    private static volatile AppDatabase DB_INSTANCE;
+    private static final String DB_NAME = &quot;cityweathermap_database&quot;;
+    private static final int NUMBER_OF_THREADS = 4;
+<span class="nc" id="L28">    public static final ExecutorService databaseWriteExecutor =</span>
+<span class="nc" id="L29">            Executors.newFixedThreadPool(NUMBER_OF_THREADS);</span>
+
+
+    public abstract UserDao userDao();
+    public abstract UserCityDao userCityDao();
+
+    /**
+     * Get app database singleton instance.
+     * Singletons are best practice since initializing a database is costly.
+     * @param context application context
+     * @return AppDatabase instance
+     */
+    public static AppDatabase getDatabase(final Context context) {
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (DB_INSTANCE == null) {</span>
+<span class="nc" id="L43">            synchronized (AppDatabase.class) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                if (DB_INSTANCE == null) {</span>
+<span class="nc" id="L45">                    DB_INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, DB_NAME).addCallback(sRoomDatabaseCallback).fallbackToDestructiveMigration().build();</span>
+                }
+<span class="nc" id="L47">            }</span>
+        }
+<span class="nc" id="L49">        return DB_INSTANCE;</span>
+    }
+
+    /**
+     * Callback to do database cleanup operations once the database initialized.
+     * This is useful during development phase as we want to startup with a clean slate.
+     * Obviously this needs to be removed in production code.
+     */
+<span class="nc" id="L57">    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {</span>
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+<span class="nc" id="L60">            super.onCreate(db);</span>
+<span class="nc" id="L61">            databaseWriteExecutor.execute(() -&gt; {</span>
+<span class="nc" id="L62">            });</span>
+<span class="nc" id="L63">        }</span>
+    };
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
