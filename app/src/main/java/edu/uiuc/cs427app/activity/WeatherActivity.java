@@ -39,14 +39,14 @@ public class WeatherActivity extends AppCompatActivity {
          city2=findViewById(R.id.city22);
         date=findViewById(R.id.date2);
 
-        String[] parts = getIntent().getStringExtra("city").split(",");
+        String[] parts = getIntent().getStringExtra("cityName").split(",");
         String city = parts[0];
         String state = parts[1];
         String country = parts[2];
 
     RequestQueue queue2 = Volley.newRequestQueue(this);
 
-    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&state="+state+"&country"+country+"&key=0886b82915b746d69e8c893a4bd5fe61";
+    String url2 = "https://api.weatherbit.io/v2.0/current?&city="+city+"&state="+state+"&country"+country+"&key=5f97b0923389467687fd6d3cb1d83bf0";
     StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url2, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {

@@ -34,7 +34,7 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
         Button buttonMap = findViewById(R.id.buttonMap);
         buttonMap.setOnClickListener(this);
       
-        Button weather = findViewById(R.id.buttonAddLocation);
+        Button weather = findViewById(R.id.buttonWeather);
         weather.setOnClickListener(this);
     }
 
@@ -47,10 +47,10 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
             mapIntent.putExtra("cityName", cityName);
             startActivity(mapIntent);
         }
-        else if (view.getId() == R.id.buttonAddLocation) {
-            Intent intent = new Intent(this, WeatherActivity.class).putExtra("city",cityName);
-            intent.putExtra("state", state);
-            intent.putExtra("country", country);
+        else if (view.getId() == R.id.buttonWeather) {
+            Intent intent = new Intent(this, WeatherActivity.class).putExtra("cityName",cityName);
+            //intent.putExtra("state", state);
+            //intent.putExtra("country", country);
             startActivity(intent);
         }
 
