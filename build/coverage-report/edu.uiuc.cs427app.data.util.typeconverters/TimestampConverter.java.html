@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TimestampConverter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">edu.uiuc.cs427app.data.util.typeconverters</a> &gt; <span class="el_source">TimestampConverter.java</span></div><h1>TimestampConverter.java</h1><pre class="source lang-java linenums">package edu.uiuc.cs427app.data.util.typeconverters;
+
+import androidx.room.TypeConverter;
+
+import java.util.Date;
+
+/**
+ * Timestamp/Date converter
+ * SQLite does not support Date column types, so they need to be stored as an 8 byte integer (Long)
+ * For list of supported types in SQLite, see: https://www.sqlite.org/datatype3.html
+ */
+<span class="nc" id="L12">public class TimestampConverter {</span>
+    /**
+     * Convert long integer to Java Date type.
+     * @param value Long integer
+     * @return Date
+     */
+    @TypeConverter
+    public static Date fromTimestamp(Long value) {
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        return value == null ? null : new Date(value);</span>
+    }
+
+    /**
+     * Convert date to long integer
+     * @param date Date
+     * @return Long integer
+     */
+    @TypeConverter
+    public static Long dateToTimestamp(Date date) {
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        return date == null ? null : date.getTime();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

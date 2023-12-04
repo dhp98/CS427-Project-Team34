@@ -42,7 +42,7 @@ public class LocationTestTwoCities {
     }
 
     @Test
-    public void checkMapButton_RandomCityA()  {
+    public void checkMapButton_RandomCityA() throws InterruptedException {
 
         // Create an intent similar to what MainActivity would send
         Intent intent = new Intent();
@@ -56,10 +56,11 @@ public class LocationTestTwoCities {
         onView(withId(R.id.buttonMap)).perform(click());
         onView(withId(R.id.textViewCityTitle)).check(matches(withText(RandomCityA)));
 
+        Thread.sleep(3000);
     }
 
     @Test
-    public void checkMapButton_RandomCityB()  {
+    public void checkMapButton_RandomCityB() throws InterruptedException {
 
         // Create an intent similar to what MainActivity would send
         Intent intent = new Intent();
@@ -73,6 +74,7 @@ public class LocationTestTwoCities {
         onView(withId(R.id.buttonMap)).perform(click());
         onView(withId(R.id.textViewCityTitle)).check(matches(withText(RandomCityB)));
 
+        Thread.sleep(3000);
     }
 
 
